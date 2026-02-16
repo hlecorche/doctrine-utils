@@ -65,7 +65,7 @@ class DoctrinePaginatorBuilder
         $resolver = new OptionsResolver();
         $resolver->setRequired('query_builder');
         $resolver->setDefaults([
-            'behavior' => function (Options $options): string {
+            'behavior' => static function (Options $options): string {
                 /** @var QueryBuilderDBAL|QueryBuilderORM $queryBuilder */
                 $queryBuilder = $options['query_builder'];
 
@@ -78,7 +78,7 @@ class DoctrinePaginatorBuilder
         ]);
         $resolver->setAllowedTypes('query_builder', [QueryBuilderDBAL::class, QueryBuilderORM::class]);
         $resolver->setAllowedTypes('behavior', 'string');
-        $resolver->setAllowedValues('behavior', function (string $behavior) use ($options): bool {
+        $resolver->setAllowedValues('behavior', static function (string $behavior) use ($options): bool {
             if ($options['query_builder'] instanceof QueryBuilderDBAL) {
                 return \in_array($behavior, ['count_by_alias', 'count_by_sub_request', 'count_by_select_all']);
             }
@@ -86,7 +86,7 @@ class DoctrinePaginatorBuilder
             return \in_array($behavior, ['count_by_alias', 'count_by_sub_request', 'orm']);
         });
         $resolver->setAllowedTypes('alias', ['string', 'null']);
-        $resolver->setNormalizer('alias', function (Options $options, ?string $alias): ?string {
+        $resolver->setNormalizer('alias', static function (Options $options, ?string $alias): ?string {
             if ('count_by_alias' === $options['behavior'] && null === $alias) {
                 throw new MissingOptionsException('When "behavior" option is set to "count_by_alias", "alias" option is required');
             } elseif ('count_by_alias' !== $options['behavior'] && null !== $alias) {
@@ -96,7 +96,7 @@ class DoctrinePaginatorBuilder
             return $alias;
         });
         $resolver->setAllowedTypes('distinct_alias', ['bool', 'null']);
-        $resolver->setNormalizer('distinct_alias', function (Options $options, ?bool $distinctAlias): ?bool {
+        $resolver->setNormalizer('distinct_alias', static function (Options $options, ?bool $distinctAlias): ?bool {
             if ('count_by_alias' === $options['behavior'] && null === $distinctAlias) {
                 return true;
             } elseif ('count_by_alias' !== $options['behavior'] && null !== $distinctAlias) {
@@ -106,7 +106,7 @@ class DoctrinePaginatorBuilder
             return $distinctAlias;
         });
         $resolver->setAllowedTypes('simplified_request', ['bool', 'null']);
-        $resolver->setNormalizer('simplified_request', function (Options $options, ?bool $simplifiedRequest): ?bool {
+        $resolver->setNormalizer('simplified_request', static function (Options $options, ?bool $simplifiedRequest): ?bool {
             if (null !== $simplifiedRequest && !($options['query_builder'] instanceof QueryBuilderORM)) {
                 throw new InvalidOptionsException('The "simplified_request" option can only be used with ORM QueryBuilder');
             }
@@ -119,7 +119,7 @@ class DoctrinePaginatorBuilder
             return $simplifiedRequest;
         });
         $resolver->setAllowedTypes('connection', [Connection::class, 'null']);
-        $resolver->setNormalizer('connection', function (Options $options, ?Connection $connection): ?Connection {
+        $resolver->setNormalizer('connection', static function (Options $options, ?Connection $connection): ?Connection {
             if ('count_by_sub_request' === $options['behavior'] && $options['query_builder'] instanceof QueryBuilderDBAL && null === $connection) {
                 throw new MissingOptionsException('When "behavior" option is set to "count_by_sub_request" with DBAL QueryBuilder, "connection" option is required');
             } elseif (null !== $connection && !($options['query_builder'] instanceof QueryBuilderDBAL)) {

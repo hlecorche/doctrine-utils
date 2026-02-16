@@ -136,7 +136,7 @@ abstract class AbstractDoctrinePaginatorTestCase extends AbstractTestCase
 
     public static function getTestCountProvider(): array
     {
-        $queryBuilderUpdaterNoData = function (QueryBuilderDBAL|QueryBuilderORM $queryBuilder): void {
+        $queryBuilderUpdaterNoData = static function (QueryBuilderDBAL|QueryBuilderORM $queryBuilder): void {
             $queryBuilder->andWhere('0 = 1');
         };
 

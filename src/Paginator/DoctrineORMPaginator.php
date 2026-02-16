@@ -90,7 +90,7 @@ final class DoctrineORMPaginator extends AbstractDoctrinePaginator
         $doctrinePaginator->setUseOutputWalkers(true);
         /** @var array<array-key, array{pk: mixed}> $iterator */
         $iterator = (array) $doctrinePaginator->getIterator();
-        $ids = array_map(fn ($row): mixed => $row['pk'], $iterator);
+        $ids = array_map(static fn ($row): mixed => $row['pk'], $iterator);
 
         $resultsByIdsQueryBuilder = clone $queryBuilder;
         $resultsByIdsQueryBuilder->resetDQLPart('where');
@@ -112,7 +112,7 @@ final class DoctrineORMPaginator extends AbstractDoctrinePaginator
             'fetch_join_collection' => null,
         ]);
         $resolver->setAllowedTypes('query_builder', QueryBuilder::class);
-        $resolver->setNormalizer('count', function (Options $options, int|array $count) {
+        $resolver->setNormalizer('count', static function (Options $options, int|array $count) {
             if (\is_int($count)) {
                 return $count;
             }
@@ -126,7 +126,7 @@ final class DoctrineORMPaginator extends AbstractDoctrinePaginator
             return $count;
         });
         $resolver->setAllowedTypes('simplified_request', ['bool', 'null']);
-        $resolver->setNormalizer('simplified_request', function (Options $options, ?bool $simplifiedRequest): ?bool {
+        $resolver->setNormalizer('simplified_request', static function (Options $options, ?bool $simplifiedRequest): ?bool {
             if (null === $options['by_identifier'] && null === $simplifiedRequest) {
                 return true;
             } elseif (null !== $options['by_identifier'] && null !== $simplifiedRequest) {
@@ -136,7 +136,7 @@ final class DoctrineORMPaginator extends AbstractDoctrinePaginator
             return $simplifiedRequest;
         });
         $resolver->setAllowedTypes('fetch_join_collection', ['bool', 'null']);
-        $resolver->setNormalizer('fetch_join_collection', function (Options $options, ?bool $fetchJoinCollection): ?bool {
+        $resolver->setNormalizer('fetch_join_collection', static function (Options $options, ?bool $fetchJoinCollection): ?bool {
             if (null === $options['by_identifier'] && null === $fetchJoinCollection) {
                 return false;
             } elseif (null !== $options['by_identifier'] && null !== $fetchJoinCollection) {

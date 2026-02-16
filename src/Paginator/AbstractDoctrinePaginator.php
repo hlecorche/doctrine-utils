@@ -46,6 +46,6 @@ abstract class AbstractDoctrinePaginator extends AbstractPaginator
         ]);
         $resolver->setAllowedTypes('by_identifier', ['string', 'null']);
         $resolver->setAllowedTypes('count', ['int', 'array']);
-        $resolver->setAllowedValues('count', fn (int|array $value) => \is_array($value) || $value >= 0);
+        $resolver->setAllowedValues('count', static fn (int|array $value) => \is_array($value) || $value >= 0);
     }
 }
