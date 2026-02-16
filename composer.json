@@ -20,7 +20,7 @@
         "php": "^8.1",
         "doctrine/dbal": "^3.8|^4.0",
         "ecommit/paginator": "^1.0",
-        "symfony/options-resolver": "^6.4|^7.3|^8.0"
+        "symfony/options-resolver": "^6.4|^7.4|^8.0"
     },
     "require-dev": {
         "doctrine/orm": "*",
