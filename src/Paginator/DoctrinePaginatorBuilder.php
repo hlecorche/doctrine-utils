@@ -32,6 +32,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *      simplified_request?: ?bool,
  *      connection?: ?Connection
  * }
+ * @phpstan-type CountOptionsWithoutQueryBuilder array{
+ *       behavior?: 'count_by_alias'|'count_by_sub_request'|'orm'|'count_by_select_all',
+ *       alias?: ?string,
+ *       distinct_alias?: ?bool,
+ *       simplified_request?: ?bool,
+ *       connection?: ?Connection
+ *  }
  * @phpstan-type CountResolvedOptions array{
  *      query_builder: QueryBuilderDBAL|QueryBuilderORM,
  *      behavior: 'count_by_alias'|'count_by_sub_request'|'orm'|'count_by_select_all',

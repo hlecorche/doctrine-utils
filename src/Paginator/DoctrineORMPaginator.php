@@ -22,14 +22,14 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @phpstan-import-type CountOptions from DoctrinePaginatorBuilder
+ * @phpstan-import-type CountOptionsWithoutQueryBuilder from DoctrinePaginatorBuilder
  *
  * @phpstan-type PaginatorOptions array{
  *      page?: mixed,
  *      max_per_page?: int,
  *      query_builder: QueryBuilder,
  *      by_identifier?: ?string,
- *      count?: int<0, max>|CountOptions,
+ *      count?: int<0, max>|CountOptionsWithoutQueryBuilder,
  *      simplified_request?: ?bool,
  *      fetch_join_collection?: ?bool
  * }
@@ -38,7 +38,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *      max_per_page: int<0, max>,
  *      query_builder: QueryBuilder,
  *      by_identifier: ?string,
- *      count: int<0, max>|CountOptions,
+ *      count: int<0, max>|CountOptionsWithoutQueryBuilder,
  *      simplified_request: ?bool,
  *      fetch_join_collection: ?bool
  * }
