@@ -6,6 +6,9 @@ parameters:
         -
             message: '#expects TOptions of array<string, mixed>, array<string, mixed> given#'
             path: tests/
+        -
+            message: '#Call to function method_exists\(\) with Doctrine\\ORM\\Configuration and ''enableNativeLazyObj#'
+            path: tests/App/Doctrine.php
 
     excludePaths:
         # Compatibility DBAL 3/4

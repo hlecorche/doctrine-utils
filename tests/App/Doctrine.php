@@ -36,7 +36,7 @@ class Doctrine
 
         $config = ORMSetup::createAttributeMetadataConfiguration([__DIR__.'/Entity'], true);
         $config->setMiddlewares([new Middleware(static::getLogger())]);
-        if (\PHP_VERSION_ID >= 80400) {
+        if (\PHP_VERSION_ID >= 80400 && method_exists($config, 'enableNativeLazyObjects')) {
             $config->enableNativeLazyObjects(true);
         }
 
