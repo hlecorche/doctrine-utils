@@ -48,6 +48,9 @@ class DoctrinePaginatorBuilderTest extends AbstractTestCase
         ]);
     }
 
+    /**
+     * @return array<array{string}>
+     */
     public static function getTestCountQueryBuilderDBALBadBehaviorProvider(): array
     {
         return [
@@ -71,6 +74,9 @@ class DoctrinePaginatorBuilderTest extends AbstractTestCase
         ]);
     }
 
+    /**
+     * @return array<array{string}>
+     */
     public static function getTestCountQueryBuilderORMBadBehaviorProvider(): array
     {
         return [
@@ -178,6 +184,9 @@ class DoctrinePaginatorBuilderTest extends AbstractTestCase
         ]);
     }
 
+    /**
+     * @return array<array{string}>
+     */
     public static function getTestCountQueryBuilderORMAliasOptionNotAllowedProvider(): array
     {
         return [
@@ -319,6 +328,9 @@ class DoctrinePaginatorBuilderTest extends AbstractTestCase
         ]);
     }
 
+    /**
+     * @return array<array{string}>
+     */
     public static function getTestCountQueryBuilderORMSimplifiedRequestOptionNotAllowedProvider(): array
     {
         return [

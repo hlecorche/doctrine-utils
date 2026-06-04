@@ -37,9 +37,11 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getTestAddMultiFilterProvider
-     *
      * @param QueryBuilderFilter::SELECT_* $filterSign
+     * @param int[]                        $filterValues
+     * @param int[]                        $expectedIds
+     *
+     * @dataProvider getTestAddMultiFilterProvider
      */
     public function testAddMultiFilterDBAL(string $filterSign, array $filterValues, array $expectedIds, int $expectedCountParameters): void
     {
@@ -54,9 +56,11 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getTestAddMultiFilterProvider
-     *
      * @param QueryBuilderFilter::SELECT_* $filterSign
+     * @param int[]                        $filterValues
+     * @param int[]                        $expectedIds
+     *
+     * @dataProvider getTestAddMultiFilterProvider
      */
     public function testAddMultiFilterORM(string $filterSign, array $filterValues, array $expectedIds, int $expectedCountParameters): void
     {
@@ -71,6 +75,9 @@ class QueryBuilderFilterTest extends AbstractTestCase
         $this->assertCount($expectedCountParameters, $this->sqlLogger->queries[1]['params']);
     }
 
+    /**
+     * @return array<array{QueryBuilderFilter::SELECT_*, int[], int[], int}>
+     */
     public static function getTestAddMultiFilterProvider(): array
     {
         $bigValues = array_merge(
@@ -144,10 +151,13 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getTestAddMultiFilterWithRestrictValuesProvider
-     *
      * @param QueryBuilderFilter::SELECT_* $filterSign
+     * @param int[]                        $filterValues
      * @param QueryBuilderFilter::SELECT_* $restricSign
+     * @param int[]                        $restrictValues
+     * @param int[]                        $expectedIds
+     *
+     * @dataProvider getTestAddMultiFilterWithRestrictValuesProvider
      */
     public function testAddMultiFilterWithRestrictValuesDBAL(string $filterSign, array $filterValues, string $restricSign, array $restrictValues, array $expectedIds): void
     {
@@ -161,10 +171,13 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getTestAddMultiFilterWithRestrictValuesProvider
-     *
      * @param QueryBuilderFilter::SELECT_* $filterSign
+     * @param int[]                        $filterValues
      * @param QueryBuilderFilter::SELECT_* $restricSign
+     * @param int[]                        $restrictValues
+     * @param int[]                        $expectedIds
+     *
+     * @dataProvider getTestAddMultiFilterWithRestrictValuesProvider
      */
     public function testAddMultiFilterWithRestrictValuesORM(string $filterSign, array $filterValues, string $restricSign, array $restrictValues, array $expectedIds): void
     {
@@ -178,6 +191,9 @@ class QueryBuilderFilterTest extends AbstractTestCase
         $this->assertSame(1, $this->sqlLogger->currentQuery);
     }
 
+    /**
+     * @return array<array{QueryBuilderFilter::SELECT_*, int[], QueryBuilderFilter::SELECT_*, int[], int[]}>
+     */
     public static function getTestAddMultiFilterWithRestrictValuesProvider(): array
     {
         return [
@@ -304,6 +320,8 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
+     * @param int[] $expectedIds
+     *
      * @dataProvider getTestAddEqualFilterProvider
      */
     public function testAddEqualFilterDBAL(bool $equal, mixed $value, array $expectedIds, int $expectedCountParameters): void
@@ -319,6 +337,8 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
+     * @param int[] $expectedIds
+     *
      * @dataProvider getTestAddEqualFilterProvider
      */
     public function testAddEqualFilterORM(bool $equal, mixed $value, array $expectedIds, int $expectedCountParameters): void
@@ -334,6 +354,9 @@ class QueryBuilderFilterTest extends AbstractTestCase
         $this->assertCount($expectedCountParameters, $this->sqlLogger->queries[1]['params']);
     }
 
+    /**
+     * @return array<array{bool, mixed, int[], int}>
+     */
     public static function getTestAddEqualFilterProvider(): array
     {
         return [
@@ -352,9 +375,10 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getTestAddComparatorFilterProvider
-     *
      * @param '<'|'>'|'<='|'>=' $sign
+     * @param int[]             $expectedIds
+     *
+     * @dataProvider getTestAddComparatorFilterProvider
      */
     public function testAddComparatorFilterDBAL(string $sign, mixed $value, array $expectedIds, int $expectedCountParameters): void
     {
@@ -369,9 +393,10 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider getTestAddComparatorFilterProvider
-     *
      * @param '<'|'>'|'<='|'>=' $sign
+     * @param int[]             $expectedIds
+     *
+     * @dataProvider getTestAddComparatorFilterProvider
      */
     public function testAddComparatorFilterORM(string $sign, mixed $value, array $expectedIds, int $expectedCountParameters): void
     {
@@ -386,6 +411,9 @@ class QueryBuilderFilterTest extends AbstractTestCase
         $this->assertCount($expectedCountParameters, $this->sqlLogger->queries[1]['params']);
     }
 
+    /**
+     * @return array<array{'<'|'>'|'<='|'>=', mixed, int[], int}>
+     */
     public static function getTestAddComparatorFilterProvider(): array
     {
         return [
@@ -397,6 +425,8 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
+     * @param int[] $expectedIds
+     *
      * @dataProvider getTestAddContainFilterProvider
      */
     public function testAddContainFilterDBAL(bool $contain, ?string $value, array $expectedIds, int $expectedCountParameters): void
@@ -412,6 +442,8 @@ class QueryBuilderFilterTest extends AbstractTestCase
     }
 
     /**
+     * @param int[] $expectedIds
+     *
      * @dataProvider getTestAddContainFilterProvider
      */
     public function testAddContainFilterORM(bool $contain, ?string $value, array $expectedIds, int $expectedCountParameters): void
@@ -427,6 +459,9 @@ class QueryBuilderFilterTest extends AbstractTestCase
         $this->assertCount($expectedCountParameters, $this->sqlLogger->queries[1]['params']);
     }
 
+    /**
+     * @return array<array{bool, ?string, int[], int}>
+     */
     public static function getTestAddContainFilterProvider(): array
     {
         return [

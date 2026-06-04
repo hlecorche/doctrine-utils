@@ -21,16 +21,17 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 /**
  * @phpstan-import-type PaginatorOptions from DoctrineORMPaginator
- * @phpstan-import-type CountOptions from DoctrinePaginatorBuilder
+ * @phpstan-import-type CountOptionsWithoutQueryBuilder from DoctrinePaginatorBuilder
  *
  * @template-extends AbstractDoctrinePaginatorTestCase<QueryBuilderORM, DoctrineORMPaginator, mixed, mixed, PaginatorOptions>
  */
 class DoctrineORMPaginatorTest extends AbstractDoctrinePaginatorTestCase
 {
     /**
-     * @dataProvider getTestCopySimplifiedRequestToCountOptionProvider
+     * @param array<string, mixed>                        $options
+     * @param int<0, max>|CountOptionsWithoutQueryBuilder $countOptionsExpected
      *
-     * @param int<0, max>|CountOptions $countOptionsExpected
+     * @dataProvider getTestCopySimplifiedRequestToCountOptionProvider
      */
     public function testCopySimplifiedRequestToCountOption(array $options, mixed $countOptionsExpected): void
     {
@@ -45,6 +46,9 @@ class DoctrineORMPaginatorTest extends AbstractDoctrinePaginatorTestCase
         $this->assertSame($countOptionsExpected, $paginator->getOption('count'));
     }
 
+    /**
+     * @return array<array{array<string, mixed>, int<0, max>|CountOptionsWithoutQueryBuilder}>
+     */
     public static function getTestCopySimplifiedRequestToCountOptionProvider(): array
     {
         return [

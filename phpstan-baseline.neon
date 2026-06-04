@@ -1,9 +1,6 @@
 parameters:
     ignoreErrors:
         -
-            message: '#no value type specified in iterable type array#'
-            path: tests/
-        -
             message: '#expects TOptions of array<string, mixed>, array<string, mixed> given#'
             path: tests/
         -

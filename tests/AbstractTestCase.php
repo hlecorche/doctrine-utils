@@ -78,6 +78,7 @@ abstract class AbstractTestCase extends TestCase
 
     /**
      * @param iterable<mixed> $result
+     * @param mixed[]         $expectedIds
      */
     protected function checkEntityIds(iterable $result, array $expectedIds): void
     {

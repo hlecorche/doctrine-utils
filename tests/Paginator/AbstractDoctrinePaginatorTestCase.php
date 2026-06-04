@@ -134,6 +134,9 @@ abstract class AbstractDoctrinePaginatorTestCase extends AbstractTestCase
         $this->checkIfQueryBuildNotChange($queryBuilder);
     }
 
+    /**
+     * @return array<array{mixed, int, ?\Closure, int}>
+     */
     public static function getTestCountProvider(): array
     {
         $queryBuilderUpdaterNoData = static function (QueryBuilderDBAL|QueryBuilderORM $queryBuilder): void {
@@ -196,6 +199,8 @@ abstract class AbstractDoctrinePaginatorTestCase extends AbstractTestCase
     }
 
     /**
+     * @param int[] $expectedIds
+     *
      * @dataProvider getTestItereatorWithoutIdentiferOptionProvider
      */
     public function testItereatorWithoutByIdentiferOption(mixed $page, int $maxPerPage, array $expectedIds, string $expectedRegexSql): void
@@ -214,6 +219,9 @@ abstract class AbstractDoctrinePaginatorTestCase extends AbstractTestCase
         $this->checkIfQueryBuildNotChange($queryBuilder);
     }
 
+    /**
+     * @return array<array{mixed, int, int[], string}>
+     */
     public static function getTestItereatorWithoutIdentiferOptionProvider(): array
     {
         return [
